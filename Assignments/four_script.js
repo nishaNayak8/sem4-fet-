@@ -1,24 +1,23 @@
-alert("Click on the course line to change text and font size!");
+alert("Click the course line to see z-index + changes!");
 
 const courseLine = document.getElementById("myCourse");
 
 courseLine.addEventListener("click", function () {
 
-    // Apply z-index using JavaScript
-    courseLine.style.position = "relative";
-    courseLine.style.zIndex = "10";
+    // visually highlight z-index effect
     courseLine.style.backgroundColor = "yellow";
     courseLine.style.padding = "10px";
+    courseLine.style.position = "relative";
+    courseLine.style.zIndex = "10";
 
-    // Change text
-    let newText = prompt("Enter new text for the course line:");
+    // change text
+    let newText = prompt("Enter new course text:");
 
     if (newText !== null && newText.trim() !== "") {
-
         courseLine.textContent = newText;
 
-        // Change font size
-        let size = prompt("Enter font size (Example: 20px or 30)");
+        // change font size
+        let size = prompt("Enter font size (e.g., 20px or 30)");
 
         if (size !== null && size.trim() !== "") {
 
@@ -29,13 +28,6 @@ courseLine.addEventListener("click", function () {
             }
 
             courseLine.style.fontSize = size;
-
-        } else {
-            alert("No valid font size entered!");
         }
-
-    } else {
-        alert("No valid text entered!");
     }
-
 });
