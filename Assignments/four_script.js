@@ -4,26 +4,26 @@ const courseLine = document.getElementById("myCourse");
 
 courseLine.addEventListener("click", function () {
 
-    // Bring element to front
+    // Apply z-index using JavaScript
     courseLine.style.position = "relative";
-    courseLine.style.zIndex = "1000";
-    courseLine.style.backgroundColor = "white";
+    courseLine.style.zIndex = "10";
+    courseLine.style.backgroundColor = "yellow";
     courseLine.style.padding = "10px";
 
-    // Step 1: change text
+    // Change text
     let newText = prompt("Enter new text for the course line:");
 
     if (newText !== null && newText.trim() !== "") {
+
         courseLine.textContent = newText;
 
-        // Step 2: change font size
-        let size = prompt("Enter font size (e.g., 20px, 2rem, 30):");
+        // Change font size
+        let size = prompt("Enter font size (Example: 20px or 30)");
 
         if (size !== null && size.trim() !== "") {
 
             size = size.trim();
 
-            // If user enters only a number → add 'px'
             if (!isNaN(size)) {
                 size = size + "px";
             }
@@ -31,10 +31,11 @@ courseLine.addEventListener("click", function () {
             courseLine.style.fontSize = size;
 
         } else {
-            alert("No valid font size provided!");
+            alert("No valid font size entered!");
         }
 
     } else {
-        alert("No valid text provided!");
+        alert("No valid text entered!");
     }
+
 });
