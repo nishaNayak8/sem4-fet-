@@ -4,12 +4,18 @@ const courseLine = document.getElementById("myCourse");
 
 courseLine.addEventListener("click", function () {
 
-    // Change text
+    // Change text only if something is entered
     let newText = prompt("Enter new text for the course line:");
-    courseLine.textContent = newText;
 
-    // Change font size
+    if (newText !== "") {
+        courseLine.textContent = newText;
+    }
+
+    // Change font size only if something is entered
     let size = prompt("Enter font size:");
-    courseLine.style.fontSize = size;
+
+    if (size !== "") {
+        courseLine.style.fontSize = size;
+    }
 
 });
