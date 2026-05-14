@@ -1,163 +1,207 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Form | Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Contact Form</title>
+
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
         }
 
-        .form-container {
+        .container {
+            max-width: 500px;
+            margin: auto;
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            width: 350px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            animation: fadeIn 0.6s ease-in-out;
+            padding: 20px;
+            border-radius: 10px;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 15px;
-            color: #1e3a8a;
         }
 
         input, textarea {
             width: 100%;
             padding: 10px;
-            margin-top: 8px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            outline: none;
-            transition: 0.3s;
-            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: 10px;
         }
 
-        input:focus, textarea:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 5px rgba(59,130,246,0.5);
+        fieldset {
+            margin-bottom: 15px;
+            padding: 10px;
         }
 
-        textarea {
-            resize: none;
-            height: 80px;
+        legend {
+            font-weight: bold;
         }
 
         button {
             width: 100%;
-            padding: 12px;
-            margin-top: 12px;
-            background: linear-gradient(135deg, #3b82f6, #06b6d4);
+            padding: 10px;
+            background: blue;
             color: white;
-            font-size: 16px;
             border: none;
-            border-radius: 6px;
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            transform: scale(1.03);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .error {
-            color: #dc2626;
-            font-size: 13px;
-            margin-top: 3px;
-        }
-
-        .output {
-            margin-top: 15px;
-            background: #f0f9ff;
-            padding: 12px;
-            border-radius: 6px;
-            border-left: 4px solid #3b82f6;
+            color: red;
             font-size: 14px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        #output {
+            margin-top: 20px;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 5px;
         }
     </style>
 </head>
+
 <body>
 
-<div class="form-container">
+<div class="container">
+
     <h2>Contact Form</h2>
-    <form id="myForm">
-        <input type="text" id="name" placeholder="Enter Name">
-        <div class="error" id="nameError"></div>
 
-        <input type="text" id="email" placeholder="Enter Email">
-        <div class="error" id="emailError"></div>
+    <form id="contactForm">
 
-        <textarea id="message" placeholder="Enter Message"></textarea>
-        <div class="error" id="msgError"></div>
+        <!-- Name -->
+        <label>Name:</label>
+        <input type="text" id="name">
+        <span class="error" id="nameError"></span>
+
+        <!-- Email -->
+        <label>Email:</label>
+        <input type="text" id="email">
+        <span class="error" id="emailError"></span>
+
+        <!-- Radio Buttons -->
+        <fieldset>
+            <legend>Gender</legend>
+
+            <input type="radio" name="gender" value="Male"> Male
+            <input type="radio" name="gender" value="Female"> Female
+        </fieldset>
+
+        <!-- Checkboxes -->
+        <fieldset>
+            <legend>Select Skills</legend>
+
+            <input type="checkbox" name="skills" value="HTML"> HTML
+            <input type="checkbox" name="skills" value="CSS"> CSS
+            <input type="checkbox" name="skills" value="JavaScript"> JavaScript
+        </fieldset>
+
+        <!-- Message -->
+        <label>Message:</label>
+        <textarea id="message"></textarea>
+        <span class="error" id="msgError"></span>
 
         <button type="submit">Submit</button>
+
     </form>
 
-    <div class="output" id="output"></div>
+    <div id="output"></div>
+
 </div>
 
 <script>
-document.getElementById("myForm").addEventListener("submit", function(e) {
-    e.preventDefault();
 
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    let isValid = true;
+
+    // Input values
     let name = document.getElementById("name").value.trim();
     let email = document.getElementById("email").value.trim();
     let message = document.getElementById("message").value.trim();
 
+    // Error elements
     let nameError = document.getElementById("nameError");
     let emailError = document.getElementById("emailError");
     let msgError = document.getElementById("msgError");
 
+    // Clear previous errors
     nameError.textContent = "";
     emailError.textContent = "";
     msgError.textContent = "";
 
-    let isValid = true;
-
+    // Name validation
     let namePattern = /^[A-Za-z ]+$/;
+
     if (name === "") {
         nameError.textContent = "Name is required";
         isValid = false;
-    } else if (!namePattern.test(name)) {
+    }
+    else if (!namePattern.test(name)) {
         nameError.textContent = "Only letters allowed";
         isValid = false;
     }
 
+    // Email validation
     let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
     if (email === "") {
         emailError.textContent = "Email is required";
         isValid = false;
-    } else if (!emailPattern.test(email)) {
-        emailError.textContent = "Invalid email format";
+    }
+    else if (!emailPattern.test(email)) {
+        emailError.textContent = "Invalid email";
         isValid = false;
     }
 
+    // Message validation
     if (message.length < 5) {
         msgError.textContent = "Message must be at least 5 characters";
         isValid = false;
     }
 
+    // Radio button value
+    let gender = "";
+    let genderOptions = document.getElementsByName("gender");
+
+    for (let i = 0; i < genderOptions.length; i++) {
+
+        if (genderOptions[i].checked) {
+            gender = genderOptions[i].value;
+        }
+    }
+
+    // Checkbox values using loop
+    let skills = [];
+    let skillOptions = document.getElementsByName("skills");
+
+    for (let i = 0; i < skillOptions.length; i++) {
+
+        if (skillOptions[i].checked) {
+            skills.push(skillOptions[i].value);
+        }
+    }
+
+    // Final Output
     if (isValid) {
+
         let result = `
             <strong>Name:</strong> ${name} <br>
             <strong>Email:</strong> ${email} <br>
+            <strong>Gender:</strong> ${gender} <br>
+            <strong>Skills:</strong> ${skills.join(", ")} <br>
             <strong>Message:</strong> ${message}
         `;
+
         document.getElementById("output").innerHTML = result;
     }
+
 });
+
 </script>
 
 </body>
